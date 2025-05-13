@@ -1,8 +1,9 @@
 let canvas;
 let startBtn;
 let stopBtn;
-let toggle = false;
+let toggle = true;
 let running = false;
+let runningInterval;
 
 function setup() {
   createCanvas(300, 300).style("background", "#eee");
@@ -27,6 +28,7 @@ function setup() {
   stopBtn.parent(btnsContainer);
 
   startBtn.mousePressed(startColours);
+  stopBtn.mousePressed(stopColours);
 }
 
 function startColours() {
@@ -35,18 +37,25 @@ function startColours() {
   startBtn.style("background", "#4A86E8");
   stopBtn.style("background", "#CC0000");
 
-  setInterval(() => {
+  runningInterval = setInterval(() => {
 
-    toggle = !toggle;
+    console.log("in interval");
     running = true;
 
     if (toggle) {
       startBtn.style("background", "#CC0000");
       stopBtn.style("background", "#4A86E8");
+      toggle = !toggle;
     } else {
       startBtn.style("background", "#4A86E8");
       stopBtn.style("background", "#CC0000");
+      toggle = !toggle;
     }
   }, 1000);
 
+}
+
+function stopColours() {
+  clearInterval(runningInterval);
+  running = false;
 }
