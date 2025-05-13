@@ -1,6 +1,8 @@
 let canvas;
 let startBtn;
 let stopBtn;
+let toggle = false;
+let running = false;
 
 function setup() {
   createCanvas(300, 300).style("background", "#eee");
@@ -25,10 +27,26 @@ function setup() {
   stopBtn.parent(btnsContainer);
 
   startBtn.mousePressed(startColours);
-  startBtn.mousePressed(stopColours);
 }
 
 function startColours() {
+  if (running) return;
+
   startBtn.style("background", "#4A86E8");
   stopBtn.style("background", "#CC0000");
+
+  setInterval(() => {
+
+    toggle = !toggle;
+    running = true;
+
+    if (toggle) {
+      startBtn.style("background", "#CC0000");
+      stopBtn.style("background", "#4A86E8");
+    } else {
+      startBtn.style("background", "#4A86E8");
+      stopBtn.style("background", "#CC0000");
+    }
+  }, 1000);
+
 }
